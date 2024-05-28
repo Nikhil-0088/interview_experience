@@ -1,0 +1,18 @@
+<%@experiences.each do |experience|%>
+       <div class="preview-card">
+      <div class="preview-card__wrp">
+        <div class="preview-card__item">
+          <div class="preview-card__img">
+            <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt="">
+          </div>
+          <div class="preview-card__content">
+            <span class="preview-card__code"><%= experience.created_at%></span>
+            <div class="preview-card__title"><%= experience.user.name%></div>
+            <div class="preview-card__text"><%=experience.role%> </div>
+            <%= link_to "READ MORE",experience_path(experience.id),class:"preview-card__button"%>
+            <%= link_to "Approve",aproove_path(exp_id: experience.id),method: :patch,class:"btn btn-success"%>
+          </div>
+        </div>
+      </div>
+    </div>
+<%end%>

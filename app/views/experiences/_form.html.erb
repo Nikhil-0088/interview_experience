@@ -1,0 +1,90 @@
+
+<div id="accordion">
+  <%= form_with(model: @experience , local: true) do |f|%>
+  <%=f.label :role,"Select a Role:"%>
+  <%=f.select :role ,['Internship', 'Placement'], class:"form-control"%>
+  <br>
+  <%= f.label :company_id, "Select the Company Name:"%>
+  <%=f.collection_select(:company_id,Company.all, :id,:name,{multiple:false})%>
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <div class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Online Test
+        </div>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <p>Tell us the questions aksed in your OT and attach relevant link to refer</p>
+       <%= f.text_area :OnlineTest,class: "form-control",rows: 10%>
+    </div>
+  </div>
+  <%# tr1 %>
+   <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Technical Round 1
+        </div>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <p>Tell us the flow and number and type of questions asked</p>
+      <%= f.text_area :TechRound1,class: "form-control",rows: 10%>
+      </div>
+    </div>
+  </div>
+  <%# tr2 %>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <div  class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Technical Round 2
+        </div>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        <p>Tell us the number and type of questions asked write N/A if not applicable</p>
+        <%= f.text_area :TechRound2,class: "form-control",rows: 10%>
+      </div>
+    </div>
+  </div>
+  <%# hr  %>
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h5 class="mb-0">
+        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          HR round
+        </div>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+      <div class="card-body">
+        <p>Tell us in details the discussion and behavioural questions asked. Write N/A if not applicable</p>
+        <%= f.text_area :HrRound,class: "form-control",rows: 10%>
+      </div>
+    </div>
+  </div>
+  <%# Preparations %>
+    <div class="card">
+    <div class="card-header" id="headingFive">
+      <h5 class="mb-0">
+        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+         Resources for Preparation
+        </div>
+      </h5>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+      <div class="card-body">
+        <p>Give rescources for preparation. Attach links of yt playlists and name of books to be reffered</p>
+        <%= f.text_area :Preparations,class: "form-control",rows: 10%>
+      </div>
+    </div>
+  </div>
+  <%=f.submit class:"btn btn-primary submit-btn"%>
+<%end%>
+</div>

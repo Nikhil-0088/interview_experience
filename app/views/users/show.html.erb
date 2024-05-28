@@ -1,0 +1,52 @@
+
+
+    <div class="container mt-2">
+    	<div class="row">
+    	    <div class="col-md-3"></div>
+    		
+    		<!--Profile Card 3-->
+    		<div class="col-md-6">
+    		        <div class="profile-thumb-block">
+    		            <img src='https://avatar.iran.liara.run/public/boy?username=Ash' style="width: 120px; height: 99px;" alt="profile-image" class="profile"/>
+    		        </div>
+    		        <div class="card-content">
+                    <span style="font-size: 20px; font-weight: 600;"><%= @user.name%></span>
+                    <span style="font-size: 10px; font-weight: 300;"><%= @user.email%></span>
+                    <div >
+                         <%= pluralize(@user.experiences.count,"Experience")%>
+                    </div>
+                    </div>
+    		</div>
+    		
+    		
+    		
+    	</div>
+    </div>
+
+<div class="box">
+    <div class="container">
+     	<div class="row">
+			 <%@experiences.each do |experience|%>
+			    <div class="preview-card">
+                   <div class="preview-card__wrp">
+                      <div class="preview-card__item">
+                           <div class="preview-card__img">
+                             <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt="">
+                           </div>
+                          <div class="preview-card__content">
+                              <span class="preview-card__code"><%= experience.created_at%></span>
+                              <div class="preview-card__title"><%= experience.user.name%></div>
+                              <div class="preview-card__text"><%=experience.role%> </div>
+                              <%= link_to "READ MORE",experience_path(experience.id),class:"preview-card__button"%>
+                            <% if logged_in? && current_user==experience.user%>
+                              <%= link_to "Edit",edit_experience_path(experience.id),class:"preview-card__button"%>
+                              <%= link_to "Delete",experience_path(experience.id),method: :delete,data:{ confirm: "Are you sure you want to delete the experience?"},class:"preview-card__button"%>
+                            <%end%>
+                           </div>
+                     </div>
+                 </div>
+              </div>
+            <%end%>		
+		</div>		
+    </div>
+</div>

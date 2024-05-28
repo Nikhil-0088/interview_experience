@@ -1,0 +1,25 @@
+
+
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to "Interview Diaries",root_path,class:"navbar-brand"%>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Internship</a></li>
+      <li><a href="#">Placements</a></li>
+      <%if !logged_in?%>
+       <li><%=link_to "Log In",login_path%></li>
+       <%else%>
+       <li><%=link_to "Logout",logout_path,method: :delete%></li>
+       <%end%>
+       <%if logged_in?%>
+       <li><%= link_to current_user.name,user_path(current_user.id) %></li>
+      <li><%= link_to "Share Your Experience",new_experience_path,class:"btn btn-warning"%></li>
+        <% if current_user.admin? && !current_page?(aproove_path) && pending_approvals!=0%>
+          <li><%= link_to "Approve Submissions",aproove_path,class:"btn btn-success"%></li><p><%= pending_approvals%></p>
+        <%end%>
+      <%end%>
+    </ul>
+  </div>
+</nav>

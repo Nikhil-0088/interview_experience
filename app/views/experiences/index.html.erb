@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row mt-5">
+  <% @experiences.each do |experience|%>
+    <div class="preview-card">
+      <div class="preview-card__wrp">
+        <div class="preview-card__item">
+          <div class="preview-card__img">
+            <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt="">
+          </div>
+          <div class="preview-card__content">
+            <span class="preview-card__code"><%= experience.created_at%></span>
+            <div class="preview-card__title"><%= experience.user.name%></div>
+            <div class="preview-card__text"><%=experience.role%> </div>
+            <%= link_to "READ MORE",experience_path(experience.id),class:"preview-card__button"%>
+             <% if logged_in? && current_user==experience.user%>
+                              <%= link_to "Edit",edit_experience_path(experience.id),class:"preview-card__button"%>
+                              <%= link_to "Delete",experience_path(experience.id),method: :delete,data:{ confirm: "Are you sure you want to delete the experience?"},class:"preview-card__button"%>
+              <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+ </div>
+</div>
