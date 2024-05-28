@@ -1,0 +1,5 @@
+<%= render 'error'%>
+<%= form_with(model: @company, local: true, class: "card-body cardbody-color p-lg-5") do |f|%>
+    <%=f.text_field :name ,placeholder: "Enter Company name:", class: "form-control"%>
+    <%=f.submit "Add Company",class:"btn btn-color px-5 mb-5 w-100"%>
+<%end%>
