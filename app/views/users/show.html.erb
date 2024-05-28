@@ -7,13 +7,20 @@
     		<!--Profile Card 3-->
     		<div class="col-md-6">
     		        <div class="profile-thumb-block">
-    		            <img src='https://avatar.iran.liara.run/public/boy?username=Ash' style="width: 120px; height: 99px;" alt="profile-image" class="profile"/>
+                    <% if @user.profile_picture.attached? %>
+                       <%= image_tag @user.profile_picture,class:"profile",style:"width: 120px; height: 99px;"%>
+                    <% else %>
+                       <img src='https://avatar.iran.liara.run/public/boy?username=Ash' style="width: 120px; height: 99px;" alt="profile-image" class="profile"/>
+                    <% end %>
     		        </div>
     		        <div class="card-content">
                     <span style="font-size: 20px; font-weight: 600;"><%= @user.name%></span>
                     <span style="font-size: 10px; font-weight: 300;"><%= @user.email%></span>
                     <div >
                          <%= pluralize(@user.experiences.count,"Experience")%>
+                         <% if logged_in? && current_user==@user%>
+                         <%=link_to "Edit Profile", edit_user_path(@user),class:"btn btn-primary"%>
+                         <%end%>
                     </div>
                     </div>
     		</div>
@@ -31,7 +38,7 @@
                    <div class="preview-card__wrp">
                       <div class="preview-card__item">
                            <div class="preview-card__img">
-                             <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt="">
+                              <%= image_tag get_company_url(experience.company.name),alt:"#{experience.company.name} Logo"%>
                            </div>
                           <div class="preview-card__content">
                               <span class="preview-card__code"><%= experience.created_at%></span>

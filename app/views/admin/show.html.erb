@@ -11,6 +11,7 @@
             <div class="preview-card__text"><%=experience.role%> </div>
             <%= link_to "READ MORE",experience_path(experience.id),class:"preview-card__button"%>
             <%= link_to "Approve",aproove_path(exp_id: experience.id),method: :patch,class:"btn btn-success"%>
+            <%= link_to "Delete",experience_path(experience.id),method: :delete,class:"btn btn-danger"%>
           </div>
         </div>
       </div>
