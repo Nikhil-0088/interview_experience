@@ -1,0 +1,11 @@
+<%= form_tag search_companies_path, method: :get, remote: true do %>
+  <%= text_field_tag :query, nil, id: 'company_search', autocomplete: 'off' ,placeholder: "Search For A Company"%>
+<% end %>
+
+<div id="company_results"></div>
+<%@companies.each do |company|%>
+    <%= link_to company_path(company) do %>
+      <%= image_tag get_company_url(company.name),alt:"#{company.name} Logo"%>
+    <%end%>
+<%end%>
+ 

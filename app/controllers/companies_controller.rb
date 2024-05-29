@@ -19,6 +19,10 @@ class CompaniesController < ApplicationController
     def index 
         @companies=Company.all
     end 
+    def search
+        @companies = Company.where("name LIKE ?", "%#{params[:query]}%")
+        render json: @companies.pluck(:name, :id)
+      end
     private 
      def require_admin
         if !(logged_in? and current_user.admin?)

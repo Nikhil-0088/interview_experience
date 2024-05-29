@@ -1,3 +1,8 @@
+
+<div id="company_results"></div>
 <%@companies.each do |company|%>
- <%= link_to company_path(company) do %><%= image_tag get_company_url(company.name),alt:"#{company.name} Logo"%><%end%>
+    <%= link_to company_path(company) do %>
+      <%= image_tag get_company_url(company.name),alt:"#{company.name} Logo"%>
+    <%end%>
 <%end%>
+ 

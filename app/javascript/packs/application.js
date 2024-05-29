@@ -16,3 +16,59 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 import "bootstrap"
+import 'jquery'
+import 'jquery-ui'
+// document.addEventListener("DOMContentLoaded",()=>{
+//     const search_input= document.getElementById("search")
+//     const company=document.querySelectorAll(".company_name");
+
+//     search_input.addEventListener("keyup",()=>{
+//         const query=search_input.value.toLowerCase();
+//         company.forEach((c)=>{
+//             const name=c.textContent.toLocaleLowerCase()
+//             c.style.display=name.includes(query) ? "":"none"
+//             console.log(name)
+//         })
+
+//     })
+// })
+document.addEventListener("DOMContentLoaded", function() {
+    var companySearch = document.getElementById('company_search');
+    if (companySearch) {
+      companySearch.addEventListener('input', function() {
+        var query = this.value.trim();
+        if (query.length >= 1) {
+          fetch('/companies/search?query=' + encodeURIComponent(query))
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(data) {
+                console.log(data)
+              showAutocompleteResults(data);
+            })
+            .catch(function(error) {
+              console.error('Error fetching autocomplete results:', error);
+            });
+        }
+      });
+    }
+  });
+  
+  function showAutocompleteResults(data) {
+    var resultsContainer = document.getElementById('company_results');
+    if (resultsContainer) {
+      resultsContainer.innerHTML = ''; // Clear previous results
+      data.forEach(function(company) {
+        var link = document.createElement('a');
+        link.href = '/companies/' + encodeURIComponent(company[1]);
+        link.textContent = company[0];
+        link.classList.add('autocomplete-item');
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          window.location.href = this.href;
+        });
+        resultsContainer.appendChild(link);
+      });
+    }
+  }
+  
