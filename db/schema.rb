@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_28_171728) do
+ActiveRecord::Schema.define(version: 2024_05_29_054525) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,11 @@ ActiveRecord::Schema.define(version: 2024_05_28_171728) do
     t.integer "user_id"
     t.boolean "approved", default: false
     t.integer "company_id"
+  end
+
+  create_table "upvotes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "experience_id"
   end
 
   create_table "users", force: :cascade do |t|

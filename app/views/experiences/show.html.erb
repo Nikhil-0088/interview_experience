@@ -80,6 +80,15 @@
     </div>
   </div>
 </div>
+<div class="conatiner">
+  <% if logged_in? %>
+   <%if @experience.upvoted_by_users.include? current_user%>
+      <%= link_to "dislike",experience_upvotes_path(@experience),method: :delete%>
+   <%else%>
+      <%= link_to "Like",experience_upvotes_path(@experience),method: :post%>
+   <%end%>
+  <%end%>
+</div>
 
 
 
