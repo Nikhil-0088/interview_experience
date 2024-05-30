@@ -33,6 +33,7 @@ import 'jquery-ui'
 //     })
 // })
 document.addEventListener("DOMContentLoaded", function() {
+  console.log("syarted ")
     var companySearch = document.getElementById('company_search');
     if (companySearch) {
       companySearch.addEventListener('input', function() {

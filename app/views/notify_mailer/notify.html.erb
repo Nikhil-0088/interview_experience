@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+     <h1>HEY <%= @user.name%></h1>
+     <p>There is a new Interview Experience uploaded for <%= @experience.company.name%></p>
+     <p>To Read the new experience , just follow the link: <%=@url%></p>
+     <p>Hope this Experience will add value to your interview preparation</p>
+     <p>Have a Great day</p>
+     <p><strong>You received this mail because you are subscribed to <%= @experience.company.name%> on Interview Diaries</strong></p>
+  </body>
+</html>

@@ -8,6 +8,10 @@ class AdminController < ApplicationController
         @experience.approved=true 
         if @experience.save
             flash[:notice]="Experience Approved"
+            @users=@experience.company.subscribed_users;
+            @users.each do |user|
+              NotifyMailer.with(experience: @experience,user: user).notify.deliver_later
+            end 
             redirect_to aproove_path
         else 
             flash[:alert]="Experience couldnt be approved"
