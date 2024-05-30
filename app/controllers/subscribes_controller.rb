@@ -4,10 +4,10 @@ class SubscribesController < ApplicationController
         @subscribe=Subscribe.new(user: current_user,company: @company)
         if @subscribe.save 
           flash[:notice]="You Subscribed to #{@company.name}"
-          redirect_to @company
+          redirect_to root_path
         else 
          flash[:alert]="Not able to Subscribe"
-         redirect_to @company
+         redirect_to root_path
         end 
     end 
     def destroy 

@@ -1,5 +1,15 @@
-
-
+<head>
+    <style>
+        .all-companies{
+            width:600px;
+        }
+        .holder{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
     <div class="container mt-2">
     	<div class="row">
     	    <div class="col-md-3"></div>
@@ -24,36 +34,16 @@
                     </div>
                     </div>
     		</div>
-    		
-    		
-    		
     	</div>
     </div>
-
-<div class="box">
-    <div class="container">
-     	<div class="row">
-			 <%@experiences.each do |experience|%>
-			    <div class="preview-card">
-                   <div class="preview-card__wrp">
-                      <div class="preview-card__item">
-                           <div class="preview-card__img">
-                              <%= image_tag get_company_url(experience.company.name),alt:"#{experience.company.name} Logo"%>
-                           </div>
-                          <div class="preview-card__content">
-                              <span class="preview-card__code"><%= experience.created_at%></span>
-                              <div class="preview-card__title"><%= experience.user.name%></div>
-                              <div class="preview-card__text"><%=experience.role%> </div>
-                              <%= link_to "READ MORE",experience_path(experience.id),class:"preview-card__button"%>
-                            <% if logged_in? && current_user==experience.user%>
-                              <%= link_to "Edit",edit_experience_path(experience.id),class:"preview-card__button"%>
-                              <%= link_to "Delete",experience_path(experience.id),method: :delete,data:{ confirm: "Are you sure you want to delete the experience?"},class:"preview-card__button"%>
-                            <%end%>
-                           </div>
-                     </div>
-                 </div>
-              </div>
-            <%end%>		
-		</div>		
-    </div>
+   <% if logged_in? && current_user==@user%>
+   <%= link_to "Liked Experience", liked_path,class:"btn btn-primary"%>
+   <%end%>
+<h4>Experiences Written by You</h4>
+ <%= render 'shared/experiences'%>
+<h4>Companies You follow</h4>
+<div class="holder">
+<div class="all-companies">
+<%= render 'shared/companies'%>
+</div>
 </div>

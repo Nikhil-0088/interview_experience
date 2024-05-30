@@ -10,13 +10,14 @@ class UsersController < ApplicationController
     if @user.save 
       session[:user_id]=@user.id
       flash[:notice]="Welcome #{@user.name} you have succesfully signed up"
-      redirect_to @user
+      redirect_to root_path
     else 
       render 'new'
     end 
   end 
   def show 
     @experiences=@user.experiences
+    @companies=@user.subscribed_companies
   end 
   def edit 
   end 
@@ -28,6 +29,9 @@ class UsersController < ApplicationController
       render 'edit'
     end 
   end 
+  def liked 
+    @experiences=current_user.upvoted_experiences
+  end 
   private 
   def setuser
       @user=User.find(params[:id])
@@ -35,7 +39,7 @@ class UsersController < ApplicationController
    def same_user 
      if current_user!=@user 
       flash[:notice]="You cannot edit or delete others profiles"
-      redirect_to @user
+      redirect_to root_path
      end 
    end 
 end 

@@ -8,8 +8,13 @@ class ExperiencesController < ApplicationController
     def create
         @experience=Experience.new(params.require(:experience).permit(:role, :OnlineTest, :TechRound1,:TechRound2, :HrRound, :Preparations,:company_id))
         @experience.user_id=current_user.id
+        @experience.approved=true
         if @experience.save 
-            flash[:notice]="Your Experience was submitted to the Admin Successfully"
+            @users=@experience.company.subscribed_users;
+            @users.each do |user|
+              NotifyMailer.with(experience: @experience,user: user).notify.deliver_later
+            end 
+            flash[:notice]="Your Experience was Published sucessfully"
             redirect_to @experience
         else 
             render 'new'

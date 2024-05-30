@@ -1,18 +1,88 @@
-<%= form_tag search_companies_path, method: :get, remote: true do %>
-  <%= text_field_tag :query, nil, id: 'company_search', autocomplete: 'off' ,placeholder: "Search For A Company"%>
-<% end %>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-<div id="company_results"></div>
-<%@companies.each do |company|%>
-    <%= link_to company_path(company) do %>
-      <%= image_tag get_company_url(company.name),alt:"#{company.name} Logo"%>
-      <% if logged_in?%>
-        <%if current_user.subscribed_companies.include? company %>
-          <%= link_to "UnSubscribe",company_subscribes_path(company),method: :delete%>
-        <%else%>
-          <%= link_to "Subscribe",company_subscribes_path(company),method: :post%>
-        <%end%>
-      <%end %>
-    <%end%>
-<%end%>
- 
+
+.container{
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  }
+.container .searchInput{
+  background: #fff;
+  width: 80%;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+
+.searchInput input{
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+}
+
+.searchInput.active input{
+  border-radius: 5px 5px 0 0;
+}
+#company_results{
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInput.active #company_results{
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#company_results .autocomplete-item{
+  text-decoration: none;
+  padding: 8px 12px;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+}
+#company_results .autocomplete:hover{
+  background: #efefef;
+} 
+.home-img{
+  width: 450px;
+  height: 300px;
+}
+.main{
+    margin-top: 2rem;
+}
+.main-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  </style>
+</head>
+<div class="container">
+    <div class="searchInput mt-3">
+      <%= form_tag search_companies_path, method: :get, remote: true do %>
+         <%= text_field_tag :query, nil, id: 'company_search', autocomplete: 'off' ,placeholder: "Search For A Company"%>
+      <% end %>
+      <div id="company_results">
+      
+      </div>
+   </div>
+</div>
+<div class="conatiner text-center main">
+  <div class="row">
+    <div class="col-md-6 cmp">
+      <%= render 'shared/companies' %>
+    </div>
+    <div class="col-md-6 main-img">
+      <%= image_tag asset_path('home.png'), class: "home-img" %>
+    </div>
+  </div>
+</div>

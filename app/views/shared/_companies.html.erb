@@ -1,0 +1,33 @@
+<head>
+<style>
+ img {
+  width:80%;
+  height:80%;
+ }
+ .sub-button{
+  border-radius:8%;
+ }
+</style>
+</head>
+<div class="container mt-5">
+  <% @companies.each_slice(4) do |company_slice| %>
+    <div class="row">
+      <% company_slice.each do |company| %>
+        <div class="col-md-3 mb-4"> <!-- Each company card takes up 3 columns on medium-sized screens and above -->
+          <div class="card style="width: 10rem;">
+            <%= link_to company_path(company) do %>
+              <%= image_tag get_company_url(company.name), alt: "#{company.name} Logo", class: "card-img-top" %>
+            <% end %>
+              <% if logged_in? %>
+                <% if current_user.subscribed_companies.include?(company) %>
+                  <%= link_to "Unsubscribe", company_subscribes_path(company), method: :delete, class: "btn btn-danger sub-button" %>
+                <% else %>
+                  <%= link_to "Subscribe", company_subscribes_path(company), method: :post, class: "btn btn-primary sub-button" %>
+                <% end %>
+              <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

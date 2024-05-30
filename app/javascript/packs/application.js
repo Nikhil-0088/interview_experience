@@ -33,12 +33,13 @@ import 'jquery-ui'
 //     })
 // })
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("syarted ")
     var companySearch = document.getElementById('company_search');
+    var resultsContainer = document.getElementById('company_results');
     if (companySearch) {
       companySearch.addEventListener('input', function() {
         var query = this.value.trim();
-        if (query.length >= 1) {
+        console.log("tp")
+        if (query.length>=1) {
           fetch('/companies/search?query=' + encodeURIComponent(query))
             .then(function(response) {
               return response.json();
@@ -51,12 +52,16 @@ document.addEventListener("DOMContentLoaded", function() {
               console.error('Error fetching autocomplete results:', error);
             });
         }
+        else{
+                resultsContainer.style.display="none"
+        }
       });
     }
   });
   
   function showAutocompleteResults(data) {
     var resultsContainer = document.getElementById('company_results');
+    resultsContainer.style.display="flex"
     if (resultsContainer) {
       resultsContainer.innerHTML = ''; // Clear previous results
       data.forEach(function(company) {

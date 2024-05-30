@@ -1,0 +1,76 @@
+<head>
+   <style>
+      /* .card {
+    max-width: 30em;
+    flex-direction: row;
+    background-color: #f8f4f4;
+    border: 0;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+    margin: 3em auto;
+  } */
+   /* .card img {
+    max-width: 25%;
+    margin: auto;
+    padding: 0.5em;
+    border-radius: 0.7em;
+  } */
+  .card.dark {
+    color: #fff;
+  }
+  .card.bg-light-subtle .card-title {
+    color: dimgrey;
+  }
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+  }
+  .text-section {
+    max-width: 60%;
+  }
+  .cta-section {
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .cta-section .btn {
+    padding: 0.3em 0.5em;
+    /* color: #696969; */
+  }
+  .card.bg-light-subtle .cta-section .btn {
+    background-color: #898989;
+    border-color: #898989;
+  }
+  @media screen and (max-width: 475px) {
+    .card {
+      font-size: 0.9em;
+    }
+  }
+   </style>
+</head>
+ <div class="container">
+ <%@experiences.each do |experience|%>
+   <div class="card bg-danger-subtle mt-4" style="max-width: 30em;
+    flex-direction: row;
+    background-color: #f8f4f4;
+    border: 0;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+    margin: 3em auto;">
+     <%= image_tag get_company_url(experience.company.name),alt:"#{experience.company.name} Logo",class:"ca-img-top",style:"    max-width: 25%;
+    margin: auto;
+    padding: 0.5em;
+    border-radius: 0.7em;"%>
+    <div class="card-body">
+      <div class="text-section">
+        <h5 class="card-title fw-bold"><%= experience.user.name%></h5>
+        <p class="card-text"><%=experience.role%>.</p>
+      </div>
+      <div class="cta-section">
+        <div><%=pluralize(experience.upvoted_by_users.count,"Like")%></div>
+        <%= link_to "READ MORE",experience_path(experience.id),class:"btn btn-dark"%>
+      </div>
+    </div>
+  </div>
+<%end%>
+</div>

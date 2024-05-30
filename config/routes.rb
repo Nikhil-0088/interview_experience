@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   get 'aproove',to: "admin#show"
   patch  'aproove', to:"admin#aproove"
   get '/companies/search', to: 'companies#search'
+  get '/liked',to: 'users#liked'
 end

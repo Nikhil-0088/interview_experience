@@ -80,6 +80,12 @@
     </div>
   </div>
 </div>
+<div class="container">
+    <% if logged_in? && current_user==@experience.user%>
+                  <%= link_to "Edit",edit_experience_path(@experience.id),class:"btn btn-dark"%>
+                  <%= link_to "Delete",experience_path(@experience.id),method: :delete,data:{ confirm: "Are you sure you want to delete the experience?"},class:"btn btn-dark"%>
+      <%end%>
+</div>
 <div class="conatiner">
   <% if logged_in? %>
    <%if @experience.upvoted_by_users.include? current_user%>
