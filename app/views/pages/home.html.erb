@@ -6,6 +6,13 @@
 <%@companies.each do |company|%>
     <%= link_to company_path(company) do %>
       <%= image_tag get_company_url(company.name),alt:"#{company.name} Logo"%>
+      <% if logged_in?%>
+        <%if current_user.subscribed_companies.include? company %>
+          <%= link_to "UnSubscribe",company_subscribes_path(company),method: :delete%>
+        <%else%>
+          <%= link_to "Subscribe",company_subscribes_path(company),method: :post%>
+        <%end%>
+      <%end %>
     <%end%>
 <%end%>
  

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :companies do 
+    resource :subscribes,only: [:create,:destroy]
     collection do 
       get 'search'
     end 

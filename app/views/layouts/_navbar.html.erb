@@ -8,6 +8,7 @@
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#">Internship</a></li>
       <li><a href="#">Placements</a></li>
+      <li><%= link_to "All Companies",companies_path %></li>
       <%if !logged_in?%>
        <li><%=link_to "Log In",login_path%></li>
        <%else%>
