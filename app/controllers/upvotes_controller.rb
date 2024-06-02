@@ -3,7 +3,6 @@ class UpvotesController < ApplicationController
        @experience=Experience.find(params[:experience_id])
        @upvote=Upvote.new(user: current_user,experience: @experience)
        if @upvote.save 
-         flash[:notice]="Liked Successfully"
          redirect_to @experience
        else 
         flash[:alert]="Not able to like the Experience"
@@ -13,8 +12,7 @@ class UpvotesController < ApplicationController
     def destroy 
         @experience=Experience.find(params[:experience_id])
         @upvote=Upvote.where(user: current_user, experience: @experience)
-        if @upvote.first.destroy 
-            flash[:alert]="Removed the Like"
+        if @upvote.first.destroy
             redirect_to @experience
         else 
             flash[:alert]="Unable to remove the Like"

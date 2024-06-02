@@ -1,24 +1,24 @@
 <%=render 'error'%>
 <div class="container">
     <div class="row">
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-1 offset-md-1">
         <h2 class="text-center text-dark mt-5">Edit Profile</h2>
         <div class="card my-5">
   <%= form_with(model: @user, local: true, class: "card-body cardbody-color p-lg-5") do |f|%>
             <div class="text-center">
-              <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                width="200px" alt="profile">
+              <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle"
+                width="100px" alt="profile">
             </div>
-               <div class="mb-3">
+               <div class="mb-1">
                 <%=f.text_field :name ,placeholder: "Enter Your Name", class: "form-control"%>
             </div>
-            <div class="mb-3">
+            <div class="mb-1">
                 <%=f.email_field :email ,placeholder: "Enter Your Email", class: "form-control"%>
             </div>
-            <div class="mb-3">
+            <div class="mb-1">
               <%=f.password_field :password, class: "form-control",placeholder: "Password"%> 
             </div>
-             <div class="mb-3">
+             <div class="mb-1">
                  <%= f.label :profile_picture %>
                  <%= f.file_field :profile_picture,class:'form-control'%>
             </div>

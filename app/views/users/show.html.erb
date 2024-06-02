@@ -1,49 +1,307 @@
 <head>
     <style>
-        .all-companies{
-            width:600px;
+        .all-companies {
+            width: 600px;
         }
-        .holder{
+
+        .holder {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        .profile {
+  margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  /* -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important; */
+  border-radius: 50% !important;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+    
+.profile-usermenu {
+  margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, td, textarea, th, ul {
+    -webkit-border-radius: 0!important;
+    -moz-border-radius: 0!important;
+    border-radius: 0!important;
+}
+.dashboard-stat, .portlet {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+.portlet {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    border-radius: 4px;
+}
+.portlet.bordered {
+    border-left: 2px solid #e6e9ec!important;
+}
+.portlet.light {
+    padding: 12px 20px 15px;
+    background-color: #fff;
+}
+.portlet.light.bordered {
+    border: 1px solid #e7ecf1!important;
+}
+.list-separated {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.profile-stat {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f4f7;
+}
+.profile-stat-title {
+    color: #7f90a4;
+    font-size: 25px;
+    text-align: center;
+}
+.uppercase {
+    text-transform: uppercase!important;
+}
+
+.profile-stat-text {
+    color: #5b9bd1;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+.profile-desc-title {
+    color: #7f90a4;
+    font-size: 17px;
+    font-weight: 600;
+}
+.profile-desc-text {
+    color: #7e8c9e;
+    font-size: 14px;
+}
+.margin-top-20 {
+    margin-top: 20px!important;
+}
+[class*=" fa-"]:not(.fa-stack), [class*=" glyphicon-"], [class*=" icon-"], [class^=fa-]:not(.fa-stack), [class^=glyphicon-], [class^=icon-] {
+    display: inline-block;
+    line-height: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.profile-desc-link i {
+    width: 22px;
+    font-size: 19px;
+    color: #abb6c4;
+    margin-right: 5px;
+}
+.like-link{
+  text-decoration: none;
+}
+
     </style>
 </head>
-    <div class="container mt-2">
-    	<div class="row">
-    	    <div class="col-md-3"></div>
-    		
-    		<!--Profile Card 3-->
-    		<div class="col-md-6">
-    		        <div class="profile-thumb-block">
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
                     <% if @user.profile_picture.attached? %>
-                       <%= image_tag @user.profile_picture,class:"profile",style:"width: 120px; height: 99px;"%>
-                    <% else %>
-                       <img src='https://avatar.iran.liara.run/public/boy?username=Ash' style="width: 120px; height: 99px;" alt="profile-image" class="profile"/>
-                    <% end %>
-    		        </div>
-    		        <div class="card-content">
-                    <span style="font-size: 20px; font-weight: 600;"><%= @user.name%></span>
-                    <span style="font-size: 10px; font-weight: 300;"><%= @user.email%></span>
+                        <%= image_tag @user.profile_picture,class:"profile",style:"width: 120px; height: 99px;"%>
+                            <% else %>
+                                <img src='https://avatar.iran.liara.run/public/boy?username=Ash'
+                                    style="width: 120px; height: 99px;" alt="profile-image" class="profile" />
+                                <% end %>
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						<%= @user.name%>
+					</div>
+					<div class="profile-usertitle-job">
+						<%= @user.email%>
+					</div>
+				</div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li>
+                            <% if logged_in? && current_user==@user%>
+                                <%= link_to "Edit Profile" , edit_user_path(@user)%>
+                                    <%end%>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- END MENU -->
+
+                <div class="portlet light bordered">
+                    <!-- STAT -->
+                    <div class="row list-separated profile-stat">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title">
+                                <%= @user.experiences.count%>
+                            </div>
+                            <div class="uppercase profile-stat-text">
+                              <% if logged_in? && current_user==@user%>
+                               <%= link_to "Experience",user_path(@user)%>
+                              <%else%>
+                               Experiences 
+                              <%end%>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title">
+                                <%= @user.upvoted_experiences.count%>
+                            </div>
+                            <div class="uppercase profile-stat-text"> 
+                              <%if logged_in? && current_user==@user%>
+                              <%= link_to "Likes",liked_path(),class:"like-link"%>
+                              <%else%>
+                                Likes
+                              <%end %>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END STAT -->
                     <div >
-                         <%= pluralize(@user.experiences.count,"Experience")%>
-                         <% if logged_in? && current_user==@user%>
-                         <%=link_to "Edit Profile", edit_user_path(@user),class:"btn btn-primary"%>
-                         <%end%>
+                      <% if logged_in? and current_user==@user%>
+                        <h4 class="profile-desc-title">Companies You Follow </h4>
+                      <%end%>
+                        <div class="holder">
+                            <div class="all-companies">
+                                <div class="container">
+                                    <% @companies.each_slice(4) do |company_slice| %>
+                                      <div class="row">
+                                        <% company_slice.each do |company| %>
+                                          <div class="col-md-3 mb-4"> <!-- Each company card takes up 3 columns on medium-sized screens and above -->
+                                            <div class="card" style="width: 2rem;">
+                                            <% if logged_in? and current_user==@user%>
+                                              <%= link_to company_path(company) do %>
+                                                <%= image_tag get_company_url(company.name), alt: "#{company.name} Logo", class: "card-img-top" %>
+                                              <% end %>
+                                            <%end%>
+                                            </div>
+                                          </div>
+                                        <% end %>
+                                      </div>
+                                    <% end %>
+                                  </div>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-    		</div>
-    	</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+              <div class="text-center">
+                <%if logged_in? && current_user==@user%>
+                <h4>Experiences Written by You</h4>
+                <%else%>
+                <h4>Experiences Written by <%= @user.name%></h4>
+                <%end%>
+              
+              </div>
+               <div class="flickr_pagination">
+    <%= will_paginate @experiences, :container => false %>
+   </div>
+                <%= render 'shared/experiences' %>
+                 <div class="flickr_pagination">
+    <%= will_paginate @experiences, :container => false %>
+   </div>
+            </div>
+        </div>
     </div>
-   <% if logged_in? && current_user==@user%>
-   <%= link_to "Liked Experience", liked_path,class:"btn btn-primary"%>
-   <%end%>
-<h4>Experiences Written by You</h4>
- <%= render 'shared/experiences'%>
-<h4>Companies You follow</h4>
-<div class="holder">
-<div class="all-companies">
-<%= render 'shared/companies'%>
-</div>
 </div>

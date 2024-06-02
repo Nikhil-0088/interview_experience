@@ -6,18 +6,23 @@ body {
 .navbar {
     background-color: #333;
     color: #fff;
-    padding: 15px 0;
   }
   
   .navbar-brand {
-    color: #fff;
+    color: #f0b30d;
+    font-size: 2em;
+    margin-top: -10px;
   }
-  
-  .navbar-brand:hover,
-  .navbar-brand:focus {
-    color: #fff;
+  .navbar-brand:hover{
+     text-decoration: none;
+     color:#fccf54; ;
   }
-  
+  .text{
+    color: #f0b30d;
+    margin-top: -10px;
+    margin-left: 10px;
+    margin-bottom: -10px;
+  }
   .navbar-nav {
     float: right;
     display: flex;
@@ -55,102 +60,34 @@ body {
   .submit-btn{
     width: 10rem;
   }
-  
-// for profile photos 
-.profile_card {
-  position: relative;
-  float: left;
-  overflow: hidden;
-  width: 100%;
-  text-align: center;
-  height:320px;
-  border:none;
-}
- .card-content {
-  width: 100%;
-  padding: 15px 25px;
-  color:#232323;
-  float:left;
-  background:#efefef;
-  height:50%;
-  border-radius:0 0 5px 5px;
-  position: relative;
-  z-index: 9999;
-}
-.profile_card .card-content::before {
-    content: '';
-    background: #efefef;
-    width: 120%;
-    height: 100%;
-    left: 1px;
-    bottom: 63px;
-    position: absolute;
-    z-index: -1;
-    transform: rotate(-11deg);
-}
-.icon-block a{
-	margin-right: 10px;
-}
-.profile_card .profile {
-  border-radius: 50%;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  max-width: 100px;
-  opacity: 1;
-  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
-  border: 2px solid rgba(255, 255, 255, 1);
-  -webkit-transform: translate(-50%, 0%);
-  transform: translate(-50%, 0%);
-  z-index:99999;
-}
-.profile_card h2 {
-  margin: 0 0 5px;
-  font-weight: 600;
-  font-size:25px;
-}
-.profile_card h2 small {
-  display: block;
-  font-size: 15px;
-  margin-top:10px;
-}
-.profile_card i {
-  display: inline-block;
-    font-size: 16px;
-    color: #232323;
+
+  // for pagenation 
+  .flickr_pagination {
     text-align: center;
-    border: 1px solid #232323;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 50%;
-    margin:0 5px;
-}
-.profile_card .icon-block{
-    float:left;
-    width:100%;
-    margin-top:15px;
-}
-.profile_card .icon-block a{
-    text-decoration:none;
-}
-.profile_card i:hover {
-  background-color:#232323;
-  color:#fff;
-  text-decoration:none;
-}
-.box-part{
-    background:#FFF;
-    border-radius:0;
-    padding:50px 10px;
-    margin:30px 0px;
-}
-.edt_icon{
-	width: 25px;
-	margin-left: 10px;
-	margin-bottom: 9px;
-}
-.icon_bottom_s{
-	width: 60px;
-	margin-bottom: 20px;
-}
+    padding: 0.3em;
+    cursor: default; }
+    .flickr_pagination a, .flickr_pagination span, .flickr_pagination em {
+      padding: 0.2em 0.5em; }
+    .flickr_pagination .disabled {
+      color: #aaaaaa; }
+    .flickr_pagination .current {
+      font-style: normal;
+      font-weight: bold;
+      color: #ff0084; }
+    .flickr_pagination a {
+      border: 1px solid #dddddd;
+      color: #0063dc;
+      text-decoration: none; }
+      .flickr_pagination a:hover, .flickr_pagination a:focus {
+        border-color: #003366;
+        background: #0063dc;
+        color: white; }
+    .flickr_pagination .page_info {
+      color: #aaaaaa;
+      padding-top: 0.8em; }
+    .flickr_pagination .previous_page, .flickr_pagination .next_page {
+      border-width: 2px; }
+    .flickr_pagination .previous_page {
+      margin-right: 1em; }
+    .flickr_pagination .next_page {
+      margin-left: 1em; }

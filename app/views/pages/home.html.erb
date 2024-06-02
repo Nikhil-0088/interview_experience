@@ -2,7 +2,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-
 .container{
   /* display: flex; */
   align-items: center;
@@ -63,7 +62,12 @@
   justify-content: center;
   align-items: center;
 }
-
+   .new{
+        display:flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+      }
   </style>
 </head>
 <div class="container">
@@ -78,11 +82,18 @@
 </div>
 <div class="conatiner text-center main">
   <div class="row">
-    <div class="col-md-6 cmp">
+    <div class="col-md-5 ml-5 cmp">
       <%= render 'shared/companies' %>
     </div>
-    <div class="col-md-6 main-img">
+    <div class="col-md-5 ml-5 main-img">
       <%= image_tag asset_path('home.png'), class: "home-img" %>
     </div>
   </div>
+</div>
+<div class="container mt-3 mb-3 new">
+   <h3>Cant find any paticular company? Please let us know</h3>
+<%= form_with(scope: :companies,url: add_path  , local: true) do |f|%>
+   <%=f.text_field :name,placeholder: "Name of the Company",required: true %>
+   <%=f.submit "Send Suggestion",class:"btn btn-warning"%>
+<%end%>
 </div>

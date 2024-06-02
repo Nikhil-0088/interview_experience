@@ -1,6 +1,48 @@
-<h1><%= @company.name %>Experiences</h1>
-<%if @experiences.empty?%>
-  <h3>SORRY! NO Experiences As of Now</h3>
-<%else%>
-   <%= render 'shared/experiences'%>
-<%end%>
+<head>
+  <style>
+    .sub-button {
+      border-radius: 8%;
+    }
+
+    .sub {
+      background-color: black;
+      color: floralwhite;
+    }
+    .sub_but{
+      position: absolute;
+      right:2%;
+      top:12%;
+    }
+  </style>
+</head>
+<div class="container">
+  <div class="text-center">
+  <h2>
+    <%= @company.name %> Interview Experiences
+  </h2>
+</div>
+  <div class="sub_but">
+    <% if logged_in? %>
+      <% if current_user.subscribed_companies.include?(@company) %>
+        <%= link_to "Unsubscribe" , company_subscribes_path(@company), method: :delete,
+          class: "btn btn-danger sub-button" %>
+      <% else %>
+            <%= link_to "Subscribe" , company_subscribes_path(@company), method: :post, class: "btn sub-button sub" %>
+      <% end %>
+      <% if current_user.admin?%>
+        <%= link_to "Delete Company",company_path(@company),method: :delete,data:{ confirm: "Are you sure this will delete all the experiences of this company?"}%>
+      <%end%>
+    <% end %>
+  </div>
+  <%if @experiences.empty?%>
+    <h3>SORRY! NO Experiences As of Now</h3>
+  <%else%>
+  <div class="flickr_pagination">
+    <%= will_paginate @experiences, :container => false %>
+   </div>
+      <%= render 'shared/experiences' %>
+    <div class="flickr_pagination">
+    <%= will_paginate @experiences, :container => false %>
+    </div>
+  <%end%>
+</div>

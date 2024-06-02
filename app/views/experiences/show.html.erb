@@ -1,104 +1,149 @@
+<head>
+  <style>
+    .like{
+       position: absolute;
+       left: 2%;
+       top:50vh;
+    }
+    .heart {
+      width: 100px;
+      height: 100px;
+      background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+      background-position: 0 0;
+      cursor: pointer;
+      transition: background-position 1s steps(28);
+      transition-duration: 0s;
+      
+      &.is-active {
+        transition-duration: 1s;
+        background-position: -2800px 0;
+      }
+}
+.cmp-name{
+  text-decoration: none;
+  color:black;
+}
+.cmp-name:hover{
+  text-decoration:none;
+  color:grey;
+}
+ </style>
+</head>
+<div class="container mt-2 text-center rec">
+  <div class="row">
+    <div class="col-lg-9 mx-auto">
+      <h1 class="display-4 company-name" style="font-size: 2.5rem; margin-bottom: 10px;"><%= link_to @experience.company.name, company_path(@experience.company), class:"cmp-name", style:"text-decoration: none; color: #333;" %></h1>
+            <p class="lead mb-0 role" style="font-size: 1rem; color: #666;">Role: <%if @experience.role== "Placement"%> Full Time <%else%>Internship<%end %></p>
+      <p class="lead mb-0 author-name" style="font-size: 1rem; color: #666;">Posted by: <%= @experience.user.name %></p>
+    </div>
+    <div class="col mt-4">
+        <div class="container">
+             <% if logged_in? && current_user == @experience.user %>
+               <%= link_to "Edit" ,edit_experience_path(@experience.id),class:"btn btn-dark m-2", style:"text-decoration: none; color: #fff; background-color: #333; padding: 8px 16px; border: none; border-radius: 4px;" %>
+               <%= link_to "Delete" ,experience_path(@experience.id), method: :delete, data:{ confirm: "Are you sure you want to delete the experience?" }, class:"btn btn-dark", style:"text-decoration: none; color: #fff; background-color: #dc3545; padding: 8px 16px; border: none; border-radius: 4px;" %>
+            <% end %>
+        </div>
+    </div>
+  </div>
+</div>
 
-  <div class="container">
-      <h1><%= @experience.user.name%></h1>
-      <h3><%=@experience.role%></h3>
-      <h3><%=@experience.company.name%></h3>
-  </div>
-<div id="accordion">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <div class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Online Test
-        </div>
-      </h5>
-    </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-        <%=@experience.OnlineTest%>
-    </div>
-  </div>
-  <%# tr1 %>
-   <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Technical Round 1
-        </div>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <%= @experience.TechRound1%>
-      </div>
-    </div>
-  </div>
-  <%# tr2 %>
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h5 class="mb-0">
-        <div  class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Technical Round 2
-        </div>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-        <%= @experience.TechRound2%>
-      </div>
-    </div>
-  </div>
-  <%# hr  %>
-  <div class="card">
-    <div class="card-header" id="headingFour">
-      <h5 class="mb-0">
-        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          HR round
-        </div>
-      </h5>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-      <div class="card-body">
-      <%= @experience.HrRound%>
-      </div>
-    </div>
-  </div>
-  <%# Preparations %>
+<div class="row mt-2">
+ <div class="col-lg-9 mx-auto">
+  <div id="accordion" class="accordion shadow">
     <div class="card">
-    <div class="card-header" id="headingFive">
-      <h5 class="mb-0">
-        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-         Resources for Preparation
-        </div>
-      </h5>
-    </div>
-    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-      <div class="card-body">
-       <%= @experience.Preparations%>
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseOne">
+            Online Test
+          </div>
+        </h5>
       </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <%=@experience.OnlineTest%>
+        </div>
+      </div>
+      <!-- <%# tr1 %> -->
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo">
+                Technical Round 1
+              </div>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+              <%= @experience.TechRound1%>
+            </div>
+          </div>
+        </div>
+        <%# tr2 %>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  Technical Round 2
+                </div>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body">
+                <%= @experience.TechRound2%>
+              </div>
+            </div>
+          </div>
+          <%# hr %>
+            <div class="card">
+              <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                  <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="false" aria-controls="collapseFour">
+                    HR round
+                  </div>
+                </h5>
+              </div>
+              <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                  <%= @experience.HrRound%>
+                </div>
+              </div>
+            </div>
+            <%# Preparations %>
+              <div class="card">
+                <div class="card-header" id="headingFive">
+                  <h5 class="mb-0">
+                    <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseFive"
+                      aria-expanded="false" aria-controls="collapseFive">
+                      Resources for Preparation
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                  <div class="card-body">
+                    <%= @experience.Preparations%>
+                  </div>
+                </div>
+              </div>
     </div>
+   </div>
   </div>
-</div>
-<div class="container">
-    <% if logged_in? && current_user==@experience.user%>
-                  <%= link_to "Edit",edit_experience_path(@experience.id),class:"btn btn-dark"%>
-                  <%= link_to "Delete",experience_path(@experience.id),method: :delete,data:{ confirm: "Are you sure you want to delete the experience?"},class:"btn btn-dark"%>
-      <%end%>
-</div>
-<div class="conatiner">
+<div class="like">
   <% if logged_in? %>
-   <%if @experience.upvoted_by_users.include? current_user%>
-      <%= link_to "dislike",experience_upvotes_path(@experience),method: :delete%>
-   <%else%>
-      <%= link_to "Like",experience_upvotes_path(@experience),method: :post%>
-   <%end%>
-  <%end%>
+    <% if @experience.upvoted_by_users.include? current_user %>
+      <%= link_to experience_upvotes_path(@experience), method: :delete, class: "heart is-active" do %>
+        <div class="heart is-active"></div>
+      <% end %>
+    <% else %>
+      <%= link_to experience_upvotes_path(@experience), method: :post, class: "heart" do %>
+        <div class="heart"></div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <p class="num_likes"><%=pluralize(@experience.upvoted_by_users.count,"Like")%></p>
 </div>
-
-
-
-
-
-
-

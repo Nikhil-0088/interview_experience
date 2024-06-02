@@ -8,4 +8,5 @@ class Experience < ApplicationRecord
     validates :TechRound1, presence: true
     validates :TechRound2, presence: true
     validates :HrRound, presence: true
+    validates :Preparations, presence: true
 end

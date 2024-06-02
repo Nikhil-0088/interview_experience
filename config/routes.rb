@@ -18,4 +18,9 @@ Rails.application.routes.draw do
   patch  'aproove', to:"admin#aproove"
   get '/companies/search', to: 'companies#search'
   get '/liked',to: 'users#liked'
+  get '/intern', to:'experiences#intern'
+  get 'placements',to: 'experiences#placement'
+  post 'add',to:'companies#user_added'
+  patch 'company_approve',to: "companies#approve"
+  delete 'remove', to:"companies#reject"
 end

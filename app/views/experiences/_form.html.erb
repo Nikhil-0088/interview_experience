@@ -1,15 +1,76 @@
+ <head>
+  <style>
+    /* Style the select element */
+.select-company {
+  width:30%;%
+  padding: 8px; /* Adjust padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  border: 1px solid #ccc; /* Add border for clarity */
+  border-radius: 4px; /* Add border radius for rounded corners */
+  background-color: #fff; /* Background color */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
 
-<div id="accordion">
-  <%= form_with(model: @experience , local: true) do |f|%>
-  <%=f.label :role,"Select a Role:"%>
-  <%=f.select :role ,['Internship', 'Placement'], class:"form-control"%>
-  <br>
-  <%= f.label :company_id, "Select the Company Name:"%>
-  <%=f.collection_select(:company_id,Company.all, :id,:name,{multiple:false})%>
+/* Style the dropdown arrow */
+.select-company:after {
+  content: "\25BC"; /* Unicode for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure the arrow is not clickable */
+}
+
+/* Style the dropdown options */
+.select-company option {
+  font-size: 14px; /* Adjust font size of options */
+}
+.custom-radio-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.custom-radio-input:checked {
+  background-color: #333;
+}
+
+.custom-radio-label {
+  font-size: 1rem;
+  color: #666;
+}
+
+
+  </style>
+ </head>
+ <div class="container mt-3 text-center">
+    <h2>Please dont leave anything blank write N/A if not applicable</h2>
+  <div class="row">
+    <div class="col-lg-9 mx-auto  text-center">
+<%= form_with(model: @experience , local: true) do |f|%>
+   <%=f.label :role,"Select a Role:",class:"custom-radio-labe"%>
+   <%= f.radio_button :role, 'Internship',class: "custom-radio-input" %> Internship
+   <%= f.radio_button :role, 'Placement',class: "custom-radio-input"%> Full Time
+   <br>
+   <%= f.label :company_id, "Select the Company Name:",class:"custom-radio-labe"%>
+ <%= f.collection_select(:company_id, Company.where(approve: true).order(:name), :id, :name, { multiple: false }, { class: "btn btn-light select-company" }) %>
+</div>
+</div>
+</div>
+<div class="row">
+ <div class="col-lg-9 mx-auto">
+  <div id="accordion" class="accordion shadow">
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
-        <div class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Online Test
         </div>
       </h5>
@@ -25,7 +86,7 @@
    <div class="card">
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
-        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           Technical Round 1
         </div>
       </h5>
@@ -33,7 +94,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
       <div class="card-body">
         <p>Tell us the flow and number and type of questions asked</p>
-      <%= f.text_area :TechRound1,class: "form-control",rows: 10%>
+       <%= f.text_area :TechRound1,class: "form-control",rows: 10%>
       </div>
     </div>
   </div>
@@ -41,15 +102,15 @@
   <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
-        <div  class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <div  class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           Technical Round 2
         </div>
       </h5>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
       <div class="card-body">
-        <p>Tell us the number and type of questions asked write N/A if not applicable</p>
-        <%= f.text_area :TechRound2,class: "form-control",rows: 10%>
+        <p>Tell us the number and type of questions asked write N/A if not applicable and if there were more technical rounds pleae describe them here only </p>
+         <%= f.text_area :TechRound2,class: "form-control",rows: 10%>
       </div>
     </div>
   </div>
@@ -57,7 +118,7 @@
   <div class="card">
     <div class="card-header" id="headingFour">
       <h5 class="mb-0">
-        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
           HR round
         </div>
       </h5>
@@ -73,7 +134,7 @@
     <div class="card">
     <div class="card-header" id="headingFive">
       <h5 class="mb-0">
-        <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        <div class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
          Resources for Preparation
         </div>
       </h5>
@@ -85,6 +146,9 @@
       </div>
     </div>
   </div>
-  <%=f.submit class:"btn btn-primary submit-btn"%>
+   <%=f.submit class:"btn btn-primary submit-btn"%>
 <%end%>
 </div>
+</div>
+</div>
+

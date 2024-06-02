@@ -1,4 +1,4 @@
-<head>
+    <head>
     <style>
         .all-companies{
             width:600px;
@@ -8,10 +8,63 @@
             justify-content: center;
             align-items: center;
         }
+        .my_style{
+            width:500px;
+            height:150px;
+        }
+        .cmp_img{
+            width:80%;
+        }
+         .sub-button{
+  border-radius:8%;
+ }
+ .sub{
+  background-color:black;
+  color:floralwhite;
+ }
+ .sub:hover{
+  color: grey;
+ }
     </style>
 </head>
-<div class="holder">
-<div class="all-companies">
-<%= render 'shared/companies'%>
+   <div class="flickr_pagination">
+    <%= will_paginate @companies, :container => false %>
+   </div>
+   <div class="container d-flex flex-column  justify-content-center align-items-center ">
+<% @companies.each do |company|%>
+      <div class="card overflow-hidden mb-3 my_style ">
+        <div class="card-content">
+          <div class="card-body cleartfix">
+            <div class="media align-items-stretch">
+              <div class="align-self-center">
+                <%=link_to company_path(company) do %>
+                <%= image_tag get_company_url(company.name) , alt:"#{company.name} Logo", class: "cmp_img" %>
+                <%end%>
+              </div>
+              <div class="media-body">
+                <h4><%= company.name%></h4>
+                <% if logged_in? %>
+                <% if current_user.subscribed_companies.include?(company) %>
+                  <%= link_to "Unsubscribe", company_subscribes_path(company), method: :delete, class: "btn btn-danger sub-button" %>
+                <% else %>
+                  <%= link_to "Subscribe", company_subscribes_path(company), method: :post, class: "btn sub-button sub"%>
+                <% end %>
+              <% end %>
+              </div>
+              <div class="align-self-center">
+                <h1><%= company.experiences.count%></h1>
+                 <span>Experiences</span> <br>
+                 <% if logged_in? && current_user.admin?%>
+                  <%= link_to "Delete",company_path(company),method: :delete,data:{ confirm: "Are you sure this will delete all the experiences of this company?"}%>
+                 <%end%>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+<%end%> 
 </div>
-</div>
+
+<div class="flickr_pagination">
+    <%= will_paginate @companies, :container => false %>
+   </div>

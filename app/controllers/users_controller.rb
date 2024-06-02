@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     end 
   end 
   def show 
-    @experiences=@user.experiences
+    @experiences=@user.experiences.paginate(page: params[:page],per_page: 2)
     @companies=@user.subscribed_companies
   end 
   def edit 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     end 
   end 
   def liked 
-    @experiences=current_user.upvoted_experiences
+    @experiences=current_user.upvoted_experiences.paginate(page: params[:page],per_page: 3)
   end 
   private 
   def setuser
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
    end
    def same_user 
      if current_user!=@user 
-      flash[:notice]="You cannot edit or delete others profiles"
+      flash[:notice]="You are not authorised to do that task"
       redirect_to root_path
      end 
    end 

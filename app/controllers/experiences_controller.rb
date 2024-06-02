@@ -1,8 +1,9 @@
 class ExperiencesController < ApplicationController
     before_action :setexperience ,only: [:edit, :update, :show, :destroy]
-    before_action :require_user,except: [:show,:index]
+    before_action :require_user,except: [:show,:index,:intern,:placement]
     before_action :require_same_user,only: [:edit, :update, :destroy]
     def new
+        @company=Company.new()
         @experience=Experience.new()
     end 
     def create
@@ -40,19 +41,25 @@ class ExperiencesController < ApplicationController
         flash[:alert]="Experience is deleted"
         redirect_to user_path(current_user)
     end 
+    def intern 
+       @experiences=Experience.where(role: "Internship").joins(:upvoted_by_users).group('experiences.id').paginate(page: params[:page], per_page: 3).order('COUNT(upvotes.id) DESC')
+    end 
+    def placement
+       @experiences=Experience.where(role: "Placement").joins(:upvoted_by_users).group('experiences.id').paginate(page: params[:page], per_page: 3).order('COUNT(upvotes.id) DESC')
+    end
     private 
     def setexperience
         @experience=Experience.find(params[:id])
      end
      def require_user 
         if !logged_in? 
-            flash[:alert]="You must log in to write an experience"
+            flash[:alert]="You must log In to perform that task"
             redirect_to root_path
         end
      end 
      def require_same_user
         if current_user!=@experience.user && !current_user.admin?
-            flash[:alert]="You can only edit or delete your own Experiences"
+            flash[:alert]="You must log In to perform that task"
             redirect_to @experience
         end
      end

@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (companySearch) {
       companySearch.addEventListener('input', function() {
         var query = this.value.trim();
-        console.log("tp")
         if (query.length>=1) {
           fetch('/companies/search?query=' + encodeURIComponent(query))
             .then(function(response) {
