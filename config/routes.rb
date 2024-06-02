@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   resources :experiences do 
     resource :upvotes,only:[:create,:destroy]
+    resources :comments, only: [:create, :destroy]
   end
   resources :users
   resources :companies do 

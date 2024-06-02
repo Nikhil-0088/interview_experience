@@ -10,7 +10,6 @@
 </head>
 <%=render 'error'%>
 <%= render 'form'%>
-<%= render 'companiesError'%>
 <div class="container mt-3 mb-3 new">
    <h3>Cant find any paticular company? Please let us know</h3>
 <%= form_with(scope: :companies,url: add_path  , local: true) do |f|%>

@@ -2,8 +2,8 @@
   <style>
     .like{
        position: absolute;
-       left: 2%;
-       top:50vh;
+       right:10%;
+       top:10vh;
     }
     .heart {
       width: 100px;
@@ -19,6 +19,11 @@
         background-position: -2800px 0;
       }
 }
+.cmt{
+  position: absolute;
+  right:5%;
+  top:25vh;
+}
 .cmp-name{
   text-decoration: none;
   color:black;
@@ -27,14 +32,87 @@
   text-decoration:none;
   color:grey;
 }
+
+/* comment box styling */
+@import url(//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
+
+.detailBox {
+    width:320px;
+    border:1px solid #bbb;
+    margin:50px;
+}
+.titleBox {
+    background-color:#fdfdfd;
+    padding:10px;
+}
+.titleBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:80%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+}
+.taskDescription {
+    margin-top:10px 0;
+}
+.commentList {
+    padding:0;
+    list-style:none;
+    max-height:200px;
+    overflow:auto;
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+}
+.del_btn{
+  color: red;
+}
  </style>
 </head>
-<div class="container mt-2 text-center rec">
-  <div class="row">
-    <div class="col-lg-9 mx-auto">
-      <h1 class="display-4 company-name" style="font-size: 2.5rem; margin-bottom: 10px;"><%= link_to @experience.company.name, company_path(@experience.company), class:"cmp-name", style:"text-decoration: none; color: #333;" %></h1>
+<div class="container mt-2 text-center">
+  <div class="row" style="width:500px;">
+    <div class="col-lg">
+      <h1 class="display-4 company-name" style="font-size: 2.5rem; margin-bottom: 10px;"><%= link_to @experience.company.name.upcase, company_path(@experience.company), class:"cmp-name", style:"text-decoration: none; color: #333;" %></h1>
             <p class="lead mb-0 role" style="font-size: 1rem; color: #666;">Role: <%if @experience.role== "Placement"%> Full Time <%else%>Internship<%end %></p>
-      <p class="lead mb-0 author-name" style="font-size: 1rem; color: #666;">Posted by: <%= @experience.user.name %></p>
+      <p class="lead mb-0 author-name" style="font-size: 1rem; color: #666;">Posted by: <%=link_to @experience.user.name,user_path(@experience.user) %></p>
     </div>
     <div class="col mt-4">
         <div class="container">
@@ -49,8 +127,9 @@
 
 
 <div class="row mt-2">
- <div class="col-lg-9 mx-auto">
-  <div id="accordion" class="accordion shadow">
+ <div class="col-lg mx-auto">
+<div class="container">
+  <div id="accordion" class="accordion shadow" style="width:50%;">
     <div class="card">
       <div class="card-header" id="headingOne">
         <h5 class="mb-0">
@@ -131,6 +210,7 @@
                 </div>
               </div>
     </div>
+    </div>
    </div>
   </div>
 <div class="like">
@@ -146,4 +226,54 @@
     <% end %>
   <% end %>
   <p class="num_likes"><%=pluralize(@experience.upvoted_by_users.count,"Like")%></p>
+</div>
+
+<%# comments  %>
+<div class="detailBox cmt">
+    <div class="titleBox">
+      <label>Comment Box</label>
+    </div>
+    <div class="commentBox">
+        
+        <p class="taskDescription">Have a healthy discussion about the questions in the experience(commnet size is limited to 250 charcters)</p>
+    </div>
+    <div class="actionBox">
+        <ul class="commentList">
+          <%@comments.each do |comment|%>
+             <%@user=User.find(comment.user_id)%>
+            <li>
+                <div class="commenterImage">
+                   <% if @user.profile_picture.attached? %>
+                        <%= image_tag @user.profile_picture%>
+                            <% else %>
+                                <img src='https://avatar.iran.liara.run/public/boy?username=Ash' alt="profile-image" class="profile" />
+                                <% end %>
+                </div>
+                <div class="commentText">
+                    <p class=""><%= comment.content%> <% if current_user == comment.user %>
+      <%= link_to "Delete", experience_comment_path(@experience, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn del_btn" %>
+    <% end %></p> <span class="date sub-text"><%= comment.created_at%> <b><%= link_to  @user.name,user_path(@user)%></b></span>
+                </div>
+            </li>
+          <%end%>
+        </ul>
+<%if logged_in?%>
+<%= form_with(model: [@experience, @experience.comments.build], url: experience_comments_path(@experience), method: :post, local: true, class: "form-inline") do |f| %>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="form-group">
+        <%= f.text_field :content, placeholder: "Add a comment", class: "form-control", style: "width: 100%;" %>
+        <!-- Adjust the width as needed -->
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= f.submit "Add", class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<%end%>
+
+    </div>
 </div>

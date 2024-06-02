@@ -32,6 +32,7 @@ class ExperiencesController < ApplicationController
     def edit 
     end 
     def show 
+        @comments =Comment.where(experience_id: @experience.id)
     end 
     def index
         @experiences=Experience.all
@@ -42,10 +43,10 @@ class ExperiencesController < ApplicationController
         redirect_to user_path(current_user)
     end 
     def intern 
-       @experiences=Experience.where(role: "Internship").joins(:upvoted_by_users).group('experiences.id').paginate(page: params[:page], per_page: 3).order('COUNT(upvotes.id) DESC')
+       @experiences=Experience.where(role: "Internship").left_outer_joins(:upvoted_by_users).group('experiences.id').paginate(page: params[:page], per_page: 3).order('COUNT(upvotes.id) DESC')
     end 
     def placement
-       @experiences=Experience.where(role: "Placement").joins(:upvoted_by_users).group('experiences.id').paginate(page: params[:page], per_page: 3).order('COUNT(upvotes.id) DESC')
+       @experiences=Experience.where(role: "Placement").left_outer_joins(:upvoted_by_users).group('experiences.id').paginate(page: params[:page], per_page: 3).order('COUNT(upvotes.id) DESC')
     end
     private 
     def setexperience
