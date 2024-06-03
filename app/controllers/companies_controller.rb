@@ -23,7 +23,6 @@ class CompaniesController < ApplicationController
     end 
     def index 
          @companies = Company.where(approve: true).order(:name).paginate(page: params[:page], per_page: 3)  
-         puts Company.where(approve: true).order(:name).to_sql
     end 
     def search
         @companies = Company.where("name LIKE ?", "%#{params[:query]}%").where(approve: true)
