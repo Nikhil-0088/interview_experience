@@ -185,6 +185,7 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
 }
 .like-link{
   text-decoration: none;
+  color: #5b9bd1;
 }
 
     </style>
@@ -194,7 +195,7 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
         <div class="col-md-3">
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
+                <div class="profile-userpic text-center">
                     <% if @user.profile_picture.attached? %>
                         <%= image_tag @user.profile_picture,class:"profile",style:"width: 120px; height: 99px;"%>
                             <% else %>
@@ -211,15 +212,18 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
 					<div class="profile-usertitle-job">
 						<%= @user.email%>
 					</div>
+          <div>
+                <% if logged_in? && current_user==@user%>
+                                <%= link_to "Edit Profile" , edit_user_path(@user)%>
+                            <%end%>
+          </div>
 				</div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR MENU -->
-                <div class="profile-usermenu">
+                <div class="profile">
                     <ul class="nav">
                         <li>
-                            <% if logged_in? && current_user==@user%>
-                                <%= link_to "Edit Profile" , edit_user_path(@user)%>
-                                    <%end%>
+                           
                         </li>
 
                     </ul>
@@ -228,17 +232,13 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
 
                 <div class="portlet light bordered">
                     <!-- STAT -->
-                    <div class="row list-separated profile-stat">
+                    <div class="row list-separated profile-stat ">
                         <div class="col-md-4 col-sm-4 col-xs-6">
                             <div class="uppercase profile-stat-title">
                                 <%= @user.experiences.count%>
                             </div>
                             <div class="uppercase profile-stat-text">
-                              <% if logged_in? && current_user==@user%>
-                               <%= link_to "Experience",user_path(@user)%>
-                              <%else%>
                                Experiences 
-                              <%end%>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-6">
@@ -262,21 +262,21 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
                         <div class="holder">
                             <div class="all-companies">
                                 <div class="container">
+                                 <% if logged_in? and current_user==@user%>
                                     <% @companies.each_slice(4) do |company_slice| %>
                                       <div class="row">
                                         <% company_slice.each do |company| %>
                                           <div class="col-md-3 mb-4"> <!-- Each company card takes up 3 columns on medium-sized screens and above -->
                                             <div class="card" style="width: 2rem;">
-                                            <% if logged_in? and current_user==@user%>
                                               <%= link_to company_path(company) do %>
                                                 <%= image_tag get_company_url(company.name), alt: "#{company.name} Logo", class: "card-img-top" %>
-                                              <% end %>
                                             <%end%>
                                             </div>
                                           </div>
                                         <% end %>
                                       </div>
                                     <% end %>
+                                    <%end%>
                                   </div>
                             </div>
                         </div>

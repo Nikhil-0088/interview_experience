@@ -1,3 +1,15 @@
+<head>
+  <style>
+    .num{
+      width:20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      margin-left: -1rem;
+      margin-top:-2rem;
+    }
+  </style>
+</head>
 <nav class="navbar navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
     <div class="navbar-header">
@@ -18,7 +30,7 @@
       <li>
         <%= link_to "All Companies" ,companies_path %>
       </li>
-      <%if !logged_in?%>
+      <%if !logged_in?%>Share Your Experience
         <li>
           <%=link_to "Log In" ,login_path%>
         </li>
@@ -34,13 +46,15 @@
               <li>
                 <%= link_to "Share Your Experience" ,new_experience_path,class:"btn btn-warning"%>
               </li>
-              <% if current_user.admin? %>
+              <% if current_user.admin?%>
                   <li>
-                   <%= link_to "Add a company" ,new_company_path,class:"btn btn-primary"%>
+                   <%= link_to "Add a company" ,new_company_path,class:"btn btn-info"%>
                   </li>
-                  <p>
+                   <% if pending_approvals!=0%>
+                  <div class="num text-center">
                     <%= pending_approvals%>
-                  </p>
+                  </div>
+              <%end %>
                 <%end%>
            <%end%>
     </ul>
