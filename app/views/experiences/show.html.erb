@@ -258,7 +258,7 @@
                 <div class="commentText">
                     <p class=""><%= comment.content%> <% if current_user == comment.user %>
       <%= link_to "Delete", experience_comment_path(@experience, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn del_btn" %>
-    <% end %></p> <span class="date sub-text"><%= comment.created_at%> <b><%= link_to  @user.name,user_path(@user)%></b></span>
+    <% end %></p> <span class="date sub-text"> <b><%= link_to  @user.name,user_path(@user)%></b></span>
                 </div>
             </li>
           <%end%>
