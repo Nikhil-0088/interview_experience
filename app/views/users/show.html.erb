@@ -199,8 +199,7 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
                     <% if @user.profile_picture.attached? %>
                         <%= image_tag @user.profile_picture,class:"profile",style:"width: 120px; height: 99px;"%>
                             <% else %>
-                                <img src='https://avatar.iran.liara.run/public/boy?username=Ash'
-                                    style="width: 120px; height: 99px;" alt="profile-image" class="profile" />
+                                <%= image_tag asset_path('profile_default.png'),class:"profile",style:"width: 120px; height: 99px;"%>
                                 <% end %>
                 </div>
                 <!-- END SIDEBAR USERPIC -->

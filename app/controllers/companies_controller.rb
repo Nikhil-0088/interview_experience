@@ -10,12 +10,13 @@ class CompaniesController < ApplicationController
             flash[:notice]="Company added Successfully"
             redirect_to @company
         else 
-            render 'new'
+            flash[:alert]="Company request already exsists please approve or delete that request first"
+            redirect_to new_company_path
         end 
     end
     def show 
         @company=Company.find(params[:id])
-        @experiences=@company.experiences.where(approved: true).paginate(page: params[:page],per_page: 2)
+        @experiences=@company.experiences.where(approved: true).paginate(page: params[:page],per_page: 3)
         # @experiences = @company.experiences.where(approved: true).joins(:upvoted_by_users)
         #                                   .group('experiences.id')
         #                                   .order('COUNT(upvotes.id) DESC')

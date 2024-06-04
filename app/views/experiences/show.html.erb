@@ -224,13 +224,14 @@
       <%= link_to experience_upvotes_path(@experience), method: :delete, class: "heart is-active" do %>
         <div class="heart is-active"></div>
       <% end %>
+       <p class="num_likes"><%=pluralize(@experience.upvoted_by_users.count,"Like")%></p>
     <% else %>
       <%= link_to experience_upvotes_path(@experience), method: :post, class: "heart" do %>
         <div class="heart"></div>
       <% end %>
+      <p class="num_likes"><%=pluralize(@experience.upvoted_by_users.count,"Like")%></p>
     <% end %>
   <% end %>
-  <p class="num_likes"><%=pluralize(@experience.upvoted_by_users.count,"Like")%></p>
 </div>
 
 <%# comments  %>
@@ -251,7 +252,7 @@
                    <% if @user.profile_picture.attached? %>
                         <%= image_tag @user.profile_picture%>
                             <% else %>
-                                <img src='https://avatar.iran.liara.run/public/boy?username=Ash' alt="profile-image" class="profile" />
+                                  <%= image_tag asset_path('profile_default.png'),class:"profile"%>
                                 <% end %>
                 </div>
                 <div class="commentText">
