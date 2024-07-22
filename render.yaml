@@ -1,5 +1,5 @@
 databases:
-  - name: postgres
+  - name: sqlite3
     ipAllowList: []
     databaseName: interview_experience
     user: interview_experience
@@ -13,7 +13,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: postgres
+          name: sqlite3
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
